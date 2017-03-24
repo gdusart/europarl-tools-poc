@@ -32,9 +32,11 @@ public final class RPRuleValidationTask implements Runnable {
 
 	@Override
 	public void run() {
-		HttpGet req = new HttpGet(host + rule.getBaseUrl());
+		result.setUrl(host + rule.getBaseUrl());
+		result.setTaskStatus(TaskStatus.IN_PROGRESS);
+		service.saveResult(result);
 
-		try (CloseableHttpResponse response = client.execute(req)) {
+		try (CloseableHttpResponse response = client.execute(new HttpGet(result.getUrl()))) {
 			result.setHttpStatus(response.getStatusLine().getStatusCode());
 			result.setHttpMessage(response.getStatusLine().getReasonPhrase());
 			result.setUrl(rule.getBaseUrl());		

@@ -1,5 +1,6 @@
 package be.gdusart.europarltools.services.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -14,9 +15,16 @@ public class MockEnvironmentService implements EnvironmentService {
 
 	@Override
 	public Collection<Environment> getEnvironments() {
-		Environment env = new Environment("PROD", "http://www.europarl.europa.eu");
-		env.setReverseProxyRulesets(Collections.singletonList("TEST"));
-		return Collections.singletonList(env);
+		List<Environment> envs = new ArrayList<>();
+		envs.add(new Environment("PROD", "http://www.europarl.europa.eu"));
+		envs.add(new Environment("DEV", "http://www.europarldv.ep.ec"));
+		envs.add(new Environment("PP", "http://www.europarlpp.ep.ec"));
+		
+		for (Environment env : envs) {
+			env.setReverseProxyRulesets(Collections.singletonList("TEST"));
+		}
+		
+		return envs;
 	}
 
 	@Override

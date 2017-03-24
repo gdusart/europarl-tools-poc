@@ -29,7 +29,7 @@ public class RPSchedulerHttpClientConfiguration {
 		ThreadPoolTaskExecutor exe = new ThreadPoolTaskExecutor();
 		exe.setCorePoolSize(0);
 		exe.setMaxPoolSize(10);
-		exe.setQueueCapacity(50);
+		exe.setQueueCapacity(1000);
 		return exe;
 	}
 

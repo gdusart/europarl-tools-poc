@@ -19,8 +19,8 @@ public class UIController {
 	private ReverseProxyRulesService ruleService;
 	
 	@RequestMapping("rprules/results/{groupId}")
-	public String getRpRulesResults(Model model, @PathVariable long groupId) {
-		Collection<ReverseProxyRuleValidationResult> results = ruleService.getAllResultsForGroup(groupId);
+	public String getRpRulesResults(Model model, @PathVariable String groupId) {
+		Collection<ReverseProxyRuleValidationResult> results = ruleService.getAllResultsForGroup(Long.valueOf(groupId));
 		model.addAttribute("results", results);
 		
 		return "listresults";
