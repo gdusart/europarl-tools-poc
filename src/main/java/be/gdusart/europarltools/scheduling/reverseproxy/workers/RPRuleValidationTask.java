@@ -38,8 +38,7 @@ public final class RPRuleValidationTask implements Runnable {
 
 		try (CloseableHttpResponse response = client.execute(new HttpGet(result.getUrl()))) {
 			result.setHttpStatus(response.getStatusLine().getStatusCode());
-			result.setHttpMessage(response.getStatusLine().getReasonPhrase());
-			result.setUrl(rule.getBaseUrl());		
+			result.setHttpMessage(response.getStatusLine().getReasonPhrase());		
 			
 			result.setTaskStatus(result.getHttpStatus() == rule.getExpectedCode() ? TaskStatus.SUCCESS : TaskStatus.FAILED);
 		} catch (Exception e) {

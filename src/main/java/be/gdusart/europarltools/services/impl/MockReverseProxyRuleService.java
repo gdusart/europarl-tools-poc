@@ -46,14 +46,14 @@ public class MockReverseProxyRuleService implements ReverseProxyRulesService {
 		rules.add(new ReverseProxyRule("/delegations/img/icon/icon_rss.png"));
 		rules.add(new ReverseProxyRule("/meps/css/mep_main.css"));
 		rules.add(new ReverseProxyRule("/meps/js/hotfix.js"));
-		rules.add(new ReverseProxyRule("/meps/img/map/delegations_map.gif"));
+		rules.add(new ReverseProxyRule("/meps/img/map/allemagne.png"));
 		rules.add(new ReverseProxyRule("/plenary/css/plenary_sed_main.css"));
 		rules.add(new ReverseProxyRule("/plenary/js/hotfix.js"));
 		rules.add(new ReverseProxyRule("/plenary/img/banner/banner_next_sitting_Strasbourg.png"));
 		rules.add(new ReverseProxyRule("/rss/css/common_rss.css"));
 		rules.add(new ReverseProxyRule("/rss/js/hotfix.js"));
 		rules.add(new ReverseProxyRule("/rss/img/ep_syndicationrss_screen2.jpg"));
-		rules.add(new ReverseProxyRule("/rss/common/css/jquery.nimble.loader.css"));
+		rules.add(new ReverseProxyRule("/rss/css/jquery.nimble.loader.css"));
 		rules.add(new ReverseProxyRule("/thinktank/css/thinktank_main.css"));
 		rules.add(new ReverseProxyRule("/thinktank/js/hotfix.js"));
 		rules.add(new ReverseProxyRule("/thinktank/img/background/gradient_white.png"));

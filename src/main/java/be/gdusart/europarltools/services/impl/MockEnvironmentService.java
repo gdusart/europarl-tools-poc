@@ -18,6 +18,7 @@ public class MockEnvironmentService implements EnvironmentService {
 		List<Environment> envs = new ArrayList<>();
 		envs.add(new Environment("PROD", "http://www.europarl.europa.eu"));
 		envs.add(new Environment("DEV", "http://www.europarldv.ep.ec"));
+		envs.add(new Environment("DEV TOMCAT7", "http://www.erplfrondv.ep.parl.union.eu"));
 		envs.add(new Environment("PP", "http://www.europarlpp.ep.ec"));
 		
 		for (Environment env : envs) {
