@@ -54,6 +54,10 @@ public final class RPRuleValidationTask implements Runnable {
 			result.setTaskStatus(TaskStatus.FAILED);
 		}
 		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {}
+		
 		service.saveRPValidationResult(result);
 		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getTaskStatus());
 	}

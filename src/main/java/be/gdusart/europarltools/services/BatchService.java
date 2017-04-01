@@ -13,4 +13,6 @@ public interface BatchService {
 
 	Iterable<RpRulesValidationBatch> getAllBatches();
 
+	RpRulesValidationBatch saveBatch(RpRulesValidationBatch batch);
+
 }

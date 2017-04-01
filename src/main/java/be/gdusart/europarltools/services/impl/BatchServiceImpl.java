@@ -46,4 +46,9 @@ public class BatchServiceImpl implements BatchService {
 		return batchRepo.findAll();
 	}
 
+	@Override
+	public RpRulesValidationBatch saveBatch(RpRulesValidationBatch batch) {
+		return batchRepo.save(batch);
+	}
+
 }

@@ -5,7 +5,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
@@ -25,11 +25,11 @@ public class RPSchedulerHttpClientConfiguration {
 
 	@Bean
 	@Qualifier(EXECUTOR_QUALIFIER)
-	public TaskExecutor executor() {
+	public AsyncTaskExecutor executor() {
 		ThreadPoolTaskExecutor exe = new ThreadPoolTaskExecutor();
-		exe.setCorePoolSize(2);
-		exe.setMaxPoolSize(10);
-		exe.setQueueCapacity(1000);
+		exe.setCorePoolSize(20);
+		exe.setMaxPoolSize(50);
+		exe.setQueueCapacity(200);
 		return exe;
 	}
 
