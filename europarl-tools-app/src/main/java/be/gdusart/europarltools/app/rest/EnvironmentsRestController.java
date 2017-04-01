@@ -19,7 +19,7 @@ public class EnvironmentsRestController {
 		this.environmentService = environmentService;
 	}
 
-	@RequestMapping("list")
+	@RequestMapping({"/",""})
 	public Iterable<Environment> list() {
 		return environmentService.getEnvironments();
 	}

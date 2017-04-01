@@ -15,4 +15,6 @@ public interface BatchService {
 	
 	<T extends BatchTask> Iterable<T> getTasksForBatchId(long batchId);
 
+	Batch getBatch(long batchId);
+
 }

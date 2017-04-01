@@ -1,5 +1,6 @@
 package be.gdusart.europarltools.services.impl;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -49,6 +50,11 @@ public class BatchServiceImpl implements BatchService {
 	@Override
 	public <T extends BatchTask> Iterable<T> getTasksForBatchId(long batchId) {
 		return taskRepo.findByBatchId(batchId);
+	}
+
+	@Override
+	public Batch getBatch(long batchId) {
+		return batchRepo.findOne(batchId);
 	}
 
 }

@@ -72,8 +72,8 @@ public class RpRulesValidationScheduler {
 				for (ReverseProxyRule rule : rules) {
 					LOG.info("Launching tasks for rule {}", rule.getBaseUrl());
 					ReverseProxyRuleValidationTask result = new ReverseProxyRuleValidationTask(batch, ruleSet.getRuleSetName(), env.getName());
+					result.setStartDate(new Date());
 					result = batchService.saveBatchTask(result);
-					
 					
 					Future<?> taskFuture = taskExecutor.submit(new RPRuleValidationTask(env.getServerUrl(), rule, client, result, batchService));
 					launchedTasksForBatch.add(taskFuture);

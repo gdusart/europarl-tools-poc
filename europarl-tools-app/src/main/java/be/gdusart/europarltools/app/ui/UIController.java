@@ -1,27 +1,123 @@
 package be.gdusart.europarltools.app.ui;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Transformer;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.collect.ImmutableMap;
+
+import be.gdusart.europarltools.app.ui.exceptions.Error404Exception;
+import be.gdusart.europarltools.app.ui.helpers.DisplayableList;
+import be.gdusart.europarltools.app.ui.helpers.DisplayableList.DisplayableRow;
+import be.gdusart.europarltools.app.ui.helpers.DisplayableList.DisplayableRow.RowLevel;
+import be.gdusart.europarltools.model.Batch;
 import be.gdusart.europarltools.model.BatchTask;
+import be.gdusart.europarltools.model.BatchTask.TaskStatus;
+import be.gdusart.europarltools.model.Environment;
 import be.gdusart.europarltools.services.BatchService;
+import be.gdusart.europarltools.services.EnvironmentService;
 
 @Controller
 @RequestMapping("/ui")
 public class UIController {
 
+	private static final Map<TaskStatus, RowLevel> TASK_STATUS_TO_ROWLEVEL = ImmutableMap.of(TaskStatus.QUEUED,
+			RowLevel.INFO, TaskStatus.FAILED, RowLevel.DANGER, TaskStatus.IN_PROGRESS, RowLevel.INFO,
+			TaskStatus.SUCCESS, RowLevel.SUCCESS);
+
 	@Autowired
 	private BatchService batchService;
+
+	@Autowired
+	private EnvironmentService envService;
 	
-	@RequestMapping("rprules/results/{batchId}")
-	public String getRpRulesResults(Model model, @PathVariable long batchId) {
-		Iterable<BatchTask> results = batchService.getTasksForBatchId(batchId);
-		model.addAttribute("results", results);
+	private static final FastDateFormat DATE_FORMAT = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG);
+
+	@RequestMapping("batches")
+	public ModelAndView listBatches() {
+		Collection<Batch> batches = IterableUtils.toList(batchService.getAllBatches());
+
+		Collection<DisplayableRow> rows = CollectionUtils.collect(batches, new Transformer<Batch, DisplayableRow>() {
+			@Override
+			public DisplayableRow transform(Batch input) {
+				DisplayableRow row = new DisplayableRow("batches/" + input.getId(), input.getId(),
+						formatDate(input.getStartTime()), formatDate(input.getEndTime()));
+				return row;
+			}
+		});
+
+		DisplayableList list = new DisplayableList("List of batches", new String[] { "ID", "START", "END" }, rows);
+
+		return listView(list);
+	}
+
+	@RequestMapping("batches/{batchId}")
+	public ModelAndView getBatchTasks(@PathVariable long batchId) {
+		Batch batch = batchService.getBatch(batchId);
 		
-		return "listresults";
+		if (batch == null) {
+			throw new Error404Exception("Batch with ID " + batchId + " does not exist");
+		}
+		
+		Iterable<BatchTask> tasks = batchService.getTasksForBatchId(batchId);
+
+		Collection<DisplayableRow> rows = CollectionUtils.collect(tasks, new Transformer<BatchTask, DisplayableRow>() {
+			@Override
+			public DisplayableRow transform(BatchTask task) {
+				DisplayableRow row = new DisplayableRow(null, task.getId(), formatDate(task.getStartDate()),
+						formatDate(task.getEndDate()), task.getStatus());
+				
+				if (task.getStatus() != null) {
+					row.setLevel(TASK_STATUS_TO_ROWLEVEL.get(task.getStatus()));
+				}
+				
+				return row;
+			}
+		});
+
+		DisplayableList list = new DisplayableList("Tasks for batch " + batch.getId(),
+				new String[] { "ID", "START DATE", "END DATE", "STATUS" }, rows);
+
+		return listView(list);
 	}
 	
+	@RequestMapping("environments")
+	public ModelAndView listEnvironments() {
+		Collection<Environment> envs = IterableUtils.toList(envService.getEnvironments());
+
+		Collection<DisplayableRow> rows = CollectionUtils.collect(envs, new Transformer<Environment, DisplayableRow>() {
+			@Override
+			public DisplayableRow transform(Environment env) {
+				DisplayableRow row = new DisplayableRow("batches/" + env.getId(), env.getId(), env.getName(), env.getServerUrl());
+				return row;
+			}
+		});
+
+		DisplayableList list = new DisplayableList("List of environments", new String[] { "ID", "NAME", "SERVER URL" }, rows);
+
+		return listView(list);
+	}
+
+	private static ModelAndView listView(DisplayableList list) {
+		ModelAndView mav = new ModelAndView("list");
+		mav.addObject("list", list);
+		return mav;
+	}
+
+	private static String formatDate(Date date) {
+		return date != null ? DATE_FORMAT.format(date) : StringUtils.EMPTY;
+	}
+
 }

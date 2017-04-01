@@ -1,5 +1,7 @@
 package be.gdusart.europarltools.rp.scheduling.tasks;
 
+import java.util.Date;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -34,7 +36,7 @@ public final class RPRuleValidationTask implements Runnable {
 	@Override
 	public void run() {
 		result.setUrl(host + rule.getBaseUrl());
-		result.setTaskStatus(TaskStatus.IN_PROGRESS);
+		result.setStatus(TaskStatus.IN_PROGRESS);
 		result = batchService.saveBatchTask(result);
 		
 		LOG.debug("Starting check for url {}", result.getUrl());
@@ -47,18 +49,19 @@ public final class RPRuleValidationTask implements Runnable {
 			result.setHttpStatus(response.getStatusLine().getStatusCode());
 			result.setHttpMessage(response.getStatusLine().getReasonPhrase());		
 			
-			result.setTaskStatus(result.getHttpStatus() == rule.getExpectedCode() ? TaskStatus.SUCCESS : TaskStatus.FAILED);
+			result.setStatus(result.getHttpStatus() == rule.getExpectedCode() ? TaskStatus.SUCCESS : TaskStatus.FAILED);
 		} catch (Exception e) {
 			LOG.error("Error validating rule {}", rule, e);
 			result.setException(e);
-			result.setTaskStatus(TaskStatus.FAILED);
+			result.setStatus(TaskStatus.FAILED);
 		}
 		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {}
 		
+		result.setEndDate(new Date());
 		batchService.saveBatchTask(result);
-		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getTaskStatus());
+		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getStatus());
 	}
 }

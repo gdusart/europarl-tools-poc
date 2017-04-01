@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,29 +14,34 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
 	integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
 	crossorigin="anonymous">
+
+<link rel="stylesheet" href="/css/ui.css">
 </head>
+
 <body>
 	<div class="container-fluid">
-		<h1>List of results:</h1>
+		<h1>${list.title}</h1>
 		<table class="table">
 			<thead class="thead-inverse">
-				<tr>
-					<th>URL</th>
-					<th>Status</th>
-
-				</tr>
+				<c:forEach var="listheader" items="${list.headers}">
+					<th>${listheader}</th>
+				</c:forEach>
 			</thead>
-			<tbody>	
-				<c:forEach var="result" items="${results}">
-					<c:set var="rowClass" value=""/>
-					<c:if test="${result.taskStatus eq 'FAILED'}"><c:set var="rowClass" value="table-danger"/></c:if>
-					<c:if test="${result.taskStatus eq 'SUCCESS'}"><c:set var="rowClass" value="table-success"/></c:if>
-					<c:if test="${result.taskStatus eq 'QUEUED'}"><c:set var="rowClass" value="table-info"/></c:if>
-					
-					<tr class="${rowClass}">
-						<td>${result.url}</td>
-						<td>${result.taskStatus}</td>
+			<tbody>
+				<c:forEach var="row" items="${list.rows}">
+
+					<c:set var="rowClass" value="${empty row.link ? '' : 'clickable-row'}"/>
+					<c:if test="${!empty row.level}">
+						<c:set var="rowClass" value="${rowClass} table-${fn:toLowerCase(row.level)}" />
+					</c:if>
+
+					<tr class="${rowClass}" data-href="${row.link}">
+
+					<c:forEach var="column" items="${row.columns}">
+						<td>${column}</td>
+					</c:forEach>
 					</tr>
+
 				</c:forEach>
 			</tbody>
 		</table>
@@ -53,5 +59,13 @@
 			integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
 			crossorigin="anonymous"></script>
 	</div>
+
+	<script>
+		jQuery(document).ready(function($) {
+			$(".clickable-row").click(function() {
+				window.location = $(this).data("href");
+			});
+		});
+	</script>
 </body>
 </html>

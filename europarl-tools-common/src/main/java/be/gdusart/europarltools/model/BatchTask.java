@@ -22,7 +22,7 @@ public abstract class BatchTask {
 	@ManyToOne
 	private Batch batch;
 
-	private TaskStatus taskStatus = TaskStatus.QUEUED;
+	private TaskStatus status = TaskStatus.QUEUED;
 	private Date startDate;
 	private Date endDate;
 
@@ -52,12 +52,12 @@ public abstract class BatchTask {
 		this.batch = batch;
 	}
 
-	public TaskStatus getTaskStatus() {
-		return taskStatus;
+	public TaskStatus getStatus() {
+		return status;
 	}
 
-	public void setTaskStatus(TaskStatus taskStatus) {
-		this.taskStatus = taskStatus;
+	public void setStatus(TaskStatus taskStatus) {
+		this.status = taskStatus;
 	}
 
 	public Date getStartDate() {
