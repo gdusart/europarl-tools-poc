@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.http.HttpStatus;
+import org.apache.http.HttpStatus;
 
 @Entity
 public class ReverseProxyRule {
@@ -19,7 +19,7 @@ public class ReverseProxyRule {
 	public ReverseProxyRuleSet ruleset;
 
 	public String baseUrl;
-	public int expectedCode = HttpStatus.OK.value();
+	public int expectedCode = HttpStatus.SC_OK;
 	public String expectedRedictionUrl;
 
 	public ReverseProxyRule() {
