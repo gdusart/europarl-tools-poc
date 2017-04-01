@@ -7,6 +7,6 @@ import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
 public interface ReverseProxyRuleValidationResultRepository
 		extends CrudRepository<ReverseProxyRuleValidationResult, Long> {
 
-	Iterable<ReverseProxyRuleValidationResult> findByBatchId(Long batchId);
+	Iterable<ReverseProxyRuleValidationResult> findByBatchId(long batchId);
 
 }

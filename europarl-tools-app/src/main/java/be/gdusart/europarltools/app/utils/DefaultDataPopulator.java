@@ -1,4 +1,4 @@
-package be.gdusart.europarltools.utils;
+package be.gdusart.europarltools.app.utils;
 
 import java.util.Collection;
 

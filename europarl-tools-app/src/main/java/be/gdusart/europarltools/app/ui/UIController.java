@@ -1,4 +1,4 @@
-package be.gdusart.europarltools.ui;
+package be.gdusart.europarltools.app.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
