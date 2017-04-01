@@ -38,7 +38,7 @@ public class DefaultDataPopulator implements CommandLineRunner {
 		rules.add(new ReverseProxyRule("/ep_framework/css/notices.css"));
 		rules.add(new ReverseProxyRule("/forms/css/forms_main.css"));
 		rules.add(new ReverseProxyRule("/rwd_site/common/css/atomicdesign.css"));
-		prodEnv.getReverseProxyRulesets().add(tomcat6);
+		
 
 		ReverseProxyRuleSet planets = new ReverseProxyRuleSet();
 		planets.setRuleSetName("planets");
@@ -67,8 +67,18 @@ public class DefaultDataPopulator implements CommandLineRunner {
 		rules.add(new ReverseProxyRule("/thinktank/js/hotfix.js"));
 		rules.add(new ReverseProxyRule("/thinktank/img/background/gradient_white.png"));
 		rules.add(new ReverseProxyRule("/thinktank/font/MyriadPro-Regular.otf"));
-		prodEnv.getReverseProxyRulesets().add(planets);
 		
+		
+		ReverseProxyRuleSet duplicate = new ReverseProxyRuleSet();
+		duplicate.setRuleSetName("Duplicate entry");
+		rules = duplicate.getRules();
+		rules.add(new ReverseProxyRule("/common/css/box.css"));
+		rules.add(new ReverseProxyRule("/common/css/box.css"));
+		
+		prodEnv.getReverseProxyRulesets().add(tomcat6);
+		prodEnv.getReverseProxyRulesets().add(planets);
+		prodEnv.getReverseProxyRulesets().add(duplicate);
+				
 		Environment env = envService.save(prodEnv);
 		LOG.info("Create env : {}", new ObjectMapper().writeValueAsString(env));
 

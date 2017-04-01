@@ -32,6 +32,7 @@ public class BatchServiceImpl implements BatchService {
 
 	@Override
 	public ReverseProxyRuleValidationResult saveRPValidationResult(ReverseProxyRuleValidationResult result) {
+		result.setTimestamp(new Date());
 		return resultRepo.save(result);
 	}
 

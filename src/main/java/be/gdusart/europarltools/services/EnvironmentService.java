@@ -10,4 +10,6 @@ public interface EnvironmentService {
 
 	Environment save(Environment prodEnv);
 
+	Iterable<Environment> getEnvironmentsWithRules();
+
 }

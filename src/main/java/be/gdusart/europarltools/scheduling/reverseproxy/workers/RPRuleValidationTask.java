@@ -3,6 +3,7 @@ package be.gdusart.europarltools.scheduling.reverseproxy.workers;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +35,15 @@ public final class RPRuleValidationTask implements Runnable {
 	public void run() {
 		result.setUrl(host + rule.getBaseUrl());
 		result.setTaskStatus(TaskStatus.IN_PROGRESS);
-		service.saveRPValidationResult(result);
+		result = service.saveRPValidationResult(result);
 		
 		LOG.debug("Starting check for url {}", result.getUrl());
-		try (CloseableHttpResponse response = client.execute(new HttpGet(result.getUrl()))) {
+		
+		HttpGet get = new HttpGet(result.getUrl());
+		get.setHeader(new BasicHeader("Prama", "no-cache"));
+		get.setHeader(new BasicHeader("Cache-Control", "no-cache"));
+		
+		try (CloseableHttpResponse response = client.execute(get)) {
 			result.setHttpStatus(response.getStatusLine().getStatusCode());
 			result.setHttpMessage(response.getStatusLine().getReasonPhrase());		
 			
@@ -48,7 +54,7 @@ public final class RPRuleValidationTask implements Runnable {
 			result.setTaskStatus(TaskStatus.FAILED);
 		}
 		
-		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getTaskStatus());
 		service.saveRPValidationResult(result);
+		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getTaskStatus());
 	}
 }

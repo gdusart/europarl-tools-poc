@@ -2,8 +2,6 @@ package be.gdusart.europarltools.scheduling.reverseproxy.scheduler;
 
 import java.util.Collection;
 
-import javax.transaction.Transactional;
-
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +41,9 @@ public class RpRulesValidationScheduler {
 	private TaskExecutor taskExecutor;
 	
 	@Scheduled(fixedDelay = 60 * 1000 * 10, initialDelay=3000)
-	@Transactional
 	public void validateRPules() {
 		LOG.info("Starting RP rules validation task");
-		Iterable<Environment> environments = envService.getEnvironments();
+		Iterable<Environment> environments = envService.getEnvironmentsWithRules();
 		for (Environment env : environments) {
 			LOG.info("Starting RP rules validation for environment {}...", env.getName());
 			RpRulesValidationBatch batch = batchService.createNewRpRulesValidationBatch();
@@ -62,7 +59,7 @@ public class RpRulesValidationScheduler {
 				for (ReverseProxyRule rule : rules) {
 					LOG.info("Launching tasks for rule {}", rule.getBaseUrl());
 					ReverseProxyRuleValidationResult result = new ReverseProxyRuleValidationResult(batch.getId(), ruleSet.getRuleSetName(), env.getName());
-					batchService.saveRPValidationResult(result);
+					result = batchService.saveRPValidationResult(result);
 					
 					taskExecutor.execute(new RPRuleValidationTask(env.getServerUrl(), rule, client, result, batchService));
 				}

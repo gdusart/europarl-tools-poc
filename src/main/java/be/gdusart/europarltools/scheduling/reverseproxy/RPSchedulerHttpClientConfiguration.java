@@ -27,7 +27,7 @@ public class RPSchedulerHttpClientConfiguration {
 	@Qualifier(EXECUTOR_QUALIFIER)
 	public TaskExecutor executor() {
 		ThreadPoolTaskExecutor exe = new ThreadPoolTaskExecutor();
-		exe.setCorePoolSize(0);
+		exe.setCorePoolSize(2);
 		exe.setMaxPoolSize(10);
 		exe.setQueueCapacity(1000);
 		return exe;
