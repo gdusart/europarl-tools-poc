@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import be.gdusart.europarltools.model.ReverseProxyRule;
 import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
 import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult.TaskStatus;
-import be.gdusart.europarltools.services.ReverseProxyRulesService;
+import be.gdusart.europarltools.services.BatchService;
 
 public final class RPRuleValidationTask implements Runnable {
 	
@@ -19,9 +19,9 @@ public final class RPRuleValidationTask implements Runnable {
 	private ReverseProxyRule rule;
 	private CloseableHttpClient client;
 	private ReverseProxyRuleValidationResult result;
-	private ReverseProxyRulesService service;
+	private BatchService service;
 
-	public RPRuleValidationTask(String host, ReverseProxyRule rule, CloseableHttpClient client, ReverseProxyRuleValidationResult result, ReverseProxyRulesService service) {
+	public RPRuleValidationTask(String host, ReverseProxyRule rule, CloseableHttpClient client, ReverseProxyRuleValidationResult result, BatchService service) {
 		super();
 		this.host = host;
 		this.rule = rule;
@@ -34,8 +34,9 @@ public final class RPRuleValidationTask implements Runnable {
 	public void run() {
 		result.setUrl(host + rule.getBaseUrl());
 		result.setTaskStatus(TaskStatus.IN_PROGRESS);
-		service.saveResult(result);
-
+		service.saveRPValidationResult(result);
+		
+		LOG.debug("Starting check for url {}", result.getUrl());
 		try (CloseableHttpResponse response = client.execute(new HttpGet(result.getUrl()))) {
 			result.setHttpStatus(response.getStatusLine().getStatusCode());
 			result.setHttpMessage(response.getStatusLine().getReasonPhrase());		
@@ -47,6 +48,7 @@ public final class RPRuleValidationTask implements Runnable {
 			result.setTaskStatus(TaskStatus.FAILED);
 		}
 		
-		service.saveResult(result);
+		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getTaskStatus());
+		service.saveRPValidationResult(result);
 	}
 }

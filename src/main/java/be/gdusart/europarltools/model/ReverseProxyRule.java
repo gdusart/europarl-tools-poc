@@ -1,13 +1,39 @@
 package be.gdusart.europarltools.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.springframework.http.HttpStatus;
 
+@Entity
 public class ReverseProxyRule {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public Long id;
+		
+	@Column(name="RULESET_ID")
+	public Long ruleSetId;
+	
+	public Long getRuleSetId() {
+		return ruleSetId;
+	}
+
+	public void setRuleSetId(Long ruleSetId) {
+		this.ruleSetId = ruleSetId;
+	}
 
 	public String baseUrl;
 	public int expectedCode = HttpStatus.OK.value();
 	public String expectedRedictionUrl;
 
+	public ReverseProxyRule() {
+		super();
+	}
+	
 	public ReverseProxyRule(String baseUrl) {
 		super();
 		this.baseUrl = baseUrl;

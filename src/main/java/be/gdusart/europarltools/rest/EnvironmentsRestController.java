@@ -1,7 +1,5 @@
 package be.gdusart.europarltools.rest;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +20,7 @@ public class EnvironmentsRestController {
 	}
 
 	@RequestMapping("list")
-	public Collection<Environment> list() {
+	public Iterable<Environment> list() {
 		return environmentService.getEnvironments();
 	}
 

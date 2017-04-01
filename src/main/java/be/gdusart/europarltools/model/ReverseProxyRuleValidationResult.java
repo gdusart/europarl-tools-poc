@@ -2,14 +2,23 @@ package be.gdusart.europarltools.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class ReverseProxyRuleValidationResult {
 
 	public enum TaskStatus {
 		QUEUED, IN_PROGRESS, SUCCESS, FAILED
 	}
 
-	private long groupId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	private long batchId;
+	
 	private String rulesetName;
 	private String environmentName;
 	private TaskStatus taskStatus = TaskStatus.QUEUED;
@@ -20,20 +29,23 @@ public class ReverseProxyRuleValidationResult {
 	private String httpMessage;
 	private int httpStatus;
 	
-
+	public ReverseProxyRuleValidationResult() {
+		super();
+	}	
+	
 	public ReverseProxyRuleValidationResult(long groupId, String rulesetName, String environmentName) {
 		super();
-		this.groupId = groupId;
+		this.batchId = groupId;
 		this.rulesetName = rulesetName;
 		this.environmentName = environmentName;
 	}
 
-	public long getGroupId() {
-		return groupId;
+	public long getBatchId() {
+		return batchId;
 	}
 
-	public void setGroupId(long groupId) {
-		this.groupId = groupId;
+	public void setBatchId(long batchId) {
+		this.batchId = batchId;
 	}
 
 	

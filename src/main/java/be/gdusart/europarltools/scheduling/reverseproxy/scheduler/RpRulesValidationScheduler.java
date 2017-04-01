@@ -2,6 +2,8 @@ package be.gdusart.europarltools.scheduling.reverseproxy.scheduler;
 
 import java.util.Collection;
 
+import javax.transaction.Transactional;
+
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +15,13 @@ import org.springframework.stereotype.Component;
 
 import be.gdusart.europarltools.model.Environment;
 import be.gdusart.europarltools.model.ReverseProxyRule;
+import be.gdusart.europarltools.model.ReverseProxyRuleSet;
 import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
+import be.gdusart.europarltools.model.RpRulesValidationBatch;
 import be.gdusart.europarltools.scheduling.reverseproxy.RPSchedulerHttpClientConfiguration;
 import be.gdusart.europarltools.scheduling.reverseproxy.workers.RPRuleValidationTask;
+import be.gdusart.europarltools.services.BatchService;
 import be.gdusart.europarltools.services.EnvironmentService;
-import be.gdusart.europarltools.services.ReverseProxyRulesService;
 
 @Component
 public class RpRulesValidationScheduler {
@@ -30,30 +34,37 @@ public class RpRulesValidationScheduler {
 
 	@Autowired
 	private EnvironmentService envService;
-
+	
 	@Autowired
-	private ReverseProxyRulesService rulesService;
+	private BatchService batchService;
 
 	@Autowired
 	@Qualifier(RPSchedulerHttpClientConfiguration.EXECUTOR_QUALIFIER)
 	private TaskExecutor taskExecutor;
 	
-	@Scheduled(fixedDelay = 60 * 1000 * 10)
+	@Scheduled(fixedDelay = 60 * 1000 * 10, initialDelay=3000)
+	@Transactional
 	public void validateRPules() {
-		for (Environment env : envService.getEnvironments()) {
-			long groupId = rulesService.createNewRPRuleGroupValidationId();
+		LOG.info("Starting RP rules validation task");
+		Iterable<Environment> environments = envService.getEnvironments();
+		for (Environment env : environments) {
+			LOG.info("Starting RP rules validation for environment {}...", env.getName());
+			RpRulesValidationBatch batch = batchService.createNewRpRulesValidationBatch();
 			
 			LOG.debug("Getting rulesets for environnement {}", env.getName());
 			
-			for (String rulesetName : env.getReverseProxyRulesets()) {				
-				Collection<ReverseProxyRule> rules = rulesService.getRules(rulesetName);
-				LOG.debug("Loaded {} rule(s) for ruleset {}, env {}", rules.size(), rulesetName, env.getName());
+			for (ReverseProxyRuleSet ruleSet : env.getReverseProxyRulesets()) {
+				LOG.info("Launching tasks for ruleset {}, env {}", ruleSet.getRuleSetName(), env.getName());
+				
+				Collection<ReverseProxyRule> rules = ruleSet.getRules();
+				LOG.debug("Loaded {} rule(s) for ruleset {}, env {}", rules.size(), ruleSet.getRuleSetName(), env.getName());
 				
 				for (ReverseProxyRule rule : rules) {
-					ReverseProxyRuleValidationResult result = new ReverseProxyRuleValidationResult(groupId, rulesetName, env.getName());
-					rulesService.saveResult(result);
+					LOG.info("Launching tasks for rule {}", rule.getBaseUrl());
+					ReverseProxyRuleValidationResult result = new ReverseProxyRuleValidationResult(batch.getId(), ruleSet.getRuleSetName(), env.getName());
+					batchService.saveRPValidationResult(result);
 					
-					taskExecutor.execute(new RPRuleValidationTask(env.getServerUrl(), rule, client, result, rulesService));
+					taskExecutor.execute(new RPRuleValidationTask(env.getServerUrl(), rule, client, result, batchService));
 				}
 			}			
 		}
