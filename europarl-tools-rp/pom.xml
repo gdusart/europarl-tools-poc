@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>be.gdusart</groupId>
-	<artifactId>europarl-tools-app</artifactId>
+	<artifactId>europarl-tools-rp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -81,11 +81,6 @@
 		<dependency>
 			<groupId>be.gdusart</groupId>
 			<artifactId>europarl-tools-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>be.gdusart</groupId>
-			<artifactId>europarl-tools-rp</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

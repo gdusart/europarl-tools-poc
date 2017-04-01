@@ -1,4 +1,4 @@
-package be.gdusart.europarltools.scheduling.reverseproxy.workers;
+package be.gdusart.europarltools.rp.scheduling.tasks;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -7,9 +7,9 @@ import org.apache.http.message.BasicHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import be.gdusart.europarltools.model.ReverseProxyRule;
-import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
-import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult.TaskStatus;
+import be.gdusart.europarltools.model.BatchTask.TaskStatus;
+import be.gdusart.europarltools.rp.model.ReverseProxyRule;
+import be.gdusart.europarltools.rp.model.ReverseProxyRuleValidationTask;
 import be.gdusart.europarltools.services.BatchService;
 
 public final class RPRuleValidationTask implements Runnable {
@@ -19,23 +19,23 @@ public final class RPRuleValidationTask implements Runnable {
 	private String host;
 	private ReverseProxyRule rule;
 	private CloseableHttpClient client;
-	private ReverseProxyRuleValidationResult result;
-	private BatchService service;
+	private ReverseProxyRuleValidationTask result;
+	private BatchService batchService;
 
-	public RPRuleValidationTask(String host, ReverseProxyRule rule, CloseableHttpClient client, ReverseProxyRuleValidationResult result, BatchService service) {
+	public RPRuleValidationTask(String host, ReverseProxyRule rule, CloseableHttpClient client, ReverseProxyRuleValidationTask result, BatchService service) {
 		super();
 		this.host = host;
 		this.rule = rule;
 		this.client = client;
 		this.result = result;
-		this.service = service;
+		this.batchService = service;
 	}
 
 	@Override
 	public void run() {
 		result.setUrl(host + rule.getBaseUrl());
 		result.setTaskStatus(TaskStatus.IN_PROGRESS);
-		result = service.saveRPValidationResult(result);
+		result = batchService.saveBatchTask(result);
 		
 		LOG.debug("Starting check for url {}", result.getUrl());
 		
@@ -58,7 +58,7 @@ public final class RPRuleValidationTask implements Runnable {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {}
 		
-		service.saveRPValidationResult(result);
+		batchService.saveBatchTask(result);
 		LOG.debug("Result of URL {}: {}", result.getUrl(), result.getTaskStatus());
 	}
 }

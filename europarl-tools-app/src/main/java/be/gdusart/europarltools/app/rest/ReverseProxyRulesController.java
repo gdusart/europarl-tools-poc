@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
+import be.gdusart.europarltools.model.BatchTask;
+import be.gdusart.europarltools.rp.model.ReverseProxyRuleSet;
+import be.gdusart.europarltools.rp.services.ReverseProxyRulesService;
 import be.gdusart.europarltools.services.BatchService;
+import be.gdusart.europarltools.services.EnvironmentService;
 
 @RestController
 @RequestMapping("/rprules")
@@ -15,16 +18,21 @@ public class ReverseProxyRulesController {
 	@Autowired
 	private BatchService batchService;
 
-//	@RequestMapping("/list/{env}")
-//	public Collection<ReverseProxyRule> list(@PathVariable String envName) {
-//		Environment env = envService.getByName(envName);
-//		
-//		return rpRuleService.getRules(env.getReverseProxyRulesets().toArray(new String[0]));
-//	}
+	@Autowired
+	private ReverseProxyRulesService rulesService;
+	
+	@Autowired
+	private EnvironmentService envService;
+	
+	
+	@RequestMapping("/list/{environmentId}")
+	public Iterable<ReverseProxyRuleSet> list(@PathVariable long environmentId) {
+		return rulesService.getRulesetsForEnvironement(envService.getEnvironment(environmentId));
+	}
 	
 	@RequestMapping("/results/{batchId}")
-	public Iterable<ReverseProxyRuleValidationResult> results(@PathVariable long batchId) {
-		return batchService.getAllResultsForBatch(batchId);
+	public Iterable<BatchTask> results(@PathVariable long batchId) {
+		return batchService.getTasksForBatchId(batchId);
 	}
 	
 	

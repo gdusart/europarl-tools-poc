@@ -1,4 +1,4 @@
-package be.gdusart.europarltools.model;
+package be.gdusart.europarltools.rp.model;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class RpRulesValidationBatch {
+public class ReveseProxyRulesValidationBatch {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,7 +17,7 @@ public class RpRulesValidationBatch {
 	private Date startTime;
 	private Date endTime;
 
-	public RpRulesValidationBatch() {
+	public ReveseProxyRulesValidationBatch() {
 		super();
 	}
 

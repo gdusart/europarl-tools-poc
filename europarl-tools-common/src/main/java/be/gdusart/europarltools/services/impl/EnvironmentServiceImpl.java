@@ -2,13 +2,11 @@ package be.gdusart.europarltools.services.impl;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import be.gdusart.europarltools.dao.EnvironmentRepository;
 import be.gdusart.europarltools.model.Environment;
-import be.gdusart.europarltools.model.ReverseProxyRuleSet;
 import be.gdusart.europarltools.services.EnvironmentService;
 
 @Service
@@ -25,7 +23,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
 	@Override
 	public Environment getByName(String name) {
-		return repository.findOne(name);
+		return repository.findByName(name);
 	}
 
 	@Override
@@ -34,15 +32,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	}
 
 	@Override
-	public Iterable<Environment> getEnvironmentsWithRules() {
-		Iterable<Environment> envs = getEnvironments();
-		for (Environment env : envs) {
-			for (ReverseProxyRuleSet ruleset : env.getReverseProxyRulesets()) {
-				Hibernate.initialize(ruleset.getRules());
-			}
-		}
-		
-		return envs;
+	public Environment getEnvironment(long environmentId) {
+		return repository.findOne(environmentId);
 	}
-
 }

@@ -1,4 +1,4 @@
-package be.gdusart.europarltools.scheduling.reverseproxy;
+package be.gdusart.europarltools.rp.scheduling;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;

@@ -1,18 +1,18 @@
 package be.gdusart.europarltools.services;
 
-import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
-import be.gdusart.europarltools.model.RpRulesValidationBatch;
+import be.gdusart.europarltools.model.Batch;
+import be.gdusart.europarltools.model.BatchTask;
 
 public interface BatchService {
 
-	RpRulesValidationBatch createNewRpRulesValidationBatch();
+	Iterable<Batch> getAllBatches();
 
-	ReverseProxyRuleValidationResult saveRPValidationResult(ReverseProxyRuleValidationResult result);
+	Batch saveBatch(Batch batch);
 
-	Iterable<ReverseProxyRuleValidationResult> getAllResultsForBatch(Long valueOf);
+	Batch createNewBatch();
 
-	Iterable<RpRulesValidationBatch> getAllBatches();
-
-	RpRulesValidationBatch saveBatch(RpRulesValidationBatch batch);
+	<T extends BatchTask> T saveBatchTask(T task);
+	
+	<T extends BatchTask> Iterable<T> getTasksForBatchId(long batchId);
 
 }

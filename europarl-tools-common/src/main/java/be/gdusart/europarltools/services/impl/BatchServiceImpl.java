@@ -7,10 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import be.gdusart.europarltools.dao.ReverseProxyRuleValidationResultRepository;
-import be.gdusart.europarltools.dao.RpRulesValidationBatchRepository;
-import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
-import be.gdusart.europarltools.model.RpRulesValidationBatch;
+import be.gdusart.europarltools.dao.BatchRepository;
+import be.gdusart.europarltools.dao.BatchTaskRepository;
+import be.gdusart.europarltools.model.Batch;
+import be.gdusart.europarltools.model.BatchTask;
 import be.gdusart.europarltools.services.BatchService;
 
 @Service
@@ -18,37 +18,37 @@ import be.gdusart.europarltools.services.BatchService;
 public class BatchServiceImpl implements BatchService {
 
 	@Autowired
-	private RpRulesValidationBatchRepository batchRepo;
+	private BatchRepository batchRepo;
 	
 	@Autowired
-	private ReverseProxyRuleValidationResultRepository resultRepo;
+	private BatchTaskRepository taskRepo;
+
 		
 	@Override
-	public RpRulesValidationBatch createNewRpRulesValidationBatch() {
-		RpRulesValidationBatch batch = new RpRulesValidationBatch();
+	public Batch createNewBatch() {
+		Batch batch = new Batch();
 		batch.setStartTime(new Date());
 		return batchRepo.save(batch);
 	}
 
 	@Override
-	public ReverseProxyRuleValidationResult saveRPValidationResult(ReverseProxyRuleValidationResult result) {
-		result.setTimestamp(new Date());
-		return resultRepo.save(result);
-	}
-
-	@Override
-	public Iterable<ReverseProxyRuleValidationResult> getAllResultsForBatch(Long batchId) {
-		return resultRepo.findByBatchId(batchId);
-	}
-
-	@Override
-	public Iterable<RpRulesValidationBatch> getAllBatches() {
+	public Iterable<Batch> getAllBatches() {
 		return batchRepo.findAll();
 	}
 
 	@Override
-	public RpRulesValidationBatch saveBatch(RpRulesValidationBatch batch) {
+	public Batch saveBatch(Batch batch) {
 		return batchRepo.save(batch);
+	}
+
+	@Override
+	public <T extends BatchTask> T saveBatchTask(T task) {
+		return taskRepo.save(task);
+	}
+
+	@Override
+	public <T extends BatchTask> Iterable<T> getTasksForBatchId(long batchId) {
+		return taskRepo.findByBatchId(batchId);
 	}
 
 }

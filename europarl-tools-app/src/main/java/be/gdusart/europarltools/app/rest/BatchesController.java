@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import be.gdusart.europarltools.model.RpRulesValidationBatch;
+import be.gdusart.europarltools.model.Batch;
 import be.gdusart.europarltools.services.BatchService;
 
 @RestController
@@ -15,7 +15,7 @@ public class BatchesController {
 	private BatchService batchService;
 	
 	@RequestMapping({"","/"})
-	public Iterable<RpRulesValidationBatch> list() {
+	public Iterable<Batch> list() {
 		return batchService.getAllBatches();
 	}
 }

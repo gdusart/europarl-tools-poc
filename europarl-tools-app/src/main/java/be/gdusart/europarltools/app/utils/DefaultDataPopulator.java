@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import be.gdusart.europarltools.model.Environment;
-import be.gdusart.europarltools.model.ReverseProxyRule;
-import be.gdusart.europarltools.model.ReverseProxyRuleSet;
+import be.gdusart.europarltools.rp.model.ReverseProxyRule;
+import be.gdusart.europarltools.rp.model.ReverseProxyRuleSet;
+import be.gdusart.europarltools.rp.services.ReverseProxyRulesService;
 import be.gdusart.europarltools.services.EnvironmentService;
 
 @Component
@@ -21,6 +20,9 @@ public class DefaultDataPopulator implements CommandLineRunner {
 	
 	@Autowired
 	private EnvironmentService envService;
+	
+	@Autowired
+	private ReverseProxyRulesService rulesService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -28,8 +30,8 @@ public class DefaultDataPopulator implements CommandLineRunner {
 		LOG.info("initializing data...");
 		
 		Environment prodEnv = new Environment("PROD", "http://www.europarl.europa.eu");
+		envService.save(prodEnv);
 		
-
 		ReverseProxyRuleSet tomcat6 = new ReverseProxyRuleSet();
 		tomcat6.setRuleSetName("TOMCAT6");
 		Collection<ReverseProxyRule> rules = tomcat6.getRules();
@@ -74,13 +76,16 @@ public class DefaultDataPopulator implements CommandLineRunner {
 		rules = duplicate.getRules();
 		rules.add(new ReverseProxyRule("/common/css/box.css"));
 		rules.add(new ReverseProxyRule("/common/css/box.css"));
+
+		duplicate = rulesService.saveRuleset(duplicate);
+		tomcat6 = rulesService.saveRuleset(tomcat6);
 		
-		prodEnv.getReverseProxyRulesets().add(tomcat6);
-		prodEnv.getReverseProxyRulesets().add(planets);
-		prodEnv.getReverseProxyRulesets().add(duplicate);
-				
-		Environment env = envService.save(prodEnv);
-		LOG.info("Create env : {}", new ObjectMapper().writeValueAsString(env));
+		duplicate.getEnvironments().add(prodEnv);
+		tomcat6.getEnvironments().add(prodEnv);
+		
+		
+		rulesService.saveRuleset(duplicate);
+		rulesService.saveRuleset(tomcat6);
 
 	}
 

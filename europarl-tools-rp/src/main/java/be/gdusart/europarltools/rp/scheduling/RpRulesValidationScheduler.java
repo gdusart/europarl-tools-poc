@@ -1,4 +1,4 @@
-package be.gdusart.europarltools.scheduling.reverseproxy.scheduler;
+package be.gdusart.europarltools.rp.scheduling;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,13 +15,13 @@ import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import be.gdusart.europarltools.model.Batch;
 import be.gdusart.europarltools.model.Environment;
-import be.gdusart.europarltools.model.ReverseProxyRule;
-import be.gdusart.europarltools.model.ReverseProxyRuleSet;
-import be.gdusart.europarltools.model.ReverseProxyRuleValidationResult;
-import be.gdusart.europarltools.model.RpRulesValidationBatch;
-import be.gdusart.europarltools.scheduling.reverseproxy.RPSchedulerHttpClientConfiguration;
-import be.gdusart.europarltools.scheduling.reverseproxy.workers.RPRuleValidationTask;
+import be.gdusart.europarltools.rp.model.ReverseProxyRule;
+import be.gdusart.europarltools.rp.model.ReverseProxyRuleSet;
+import be.gdusart.europarltools.rp.model.ReverseProxyRuleValidationTask;
+import be.gdusart.europarltools.rp.scheduling.tasks.RPRuleValidationTask;
+import be.gdusart.europarltools.rp.services.ReverseProxyRulesService;
 import be.gdusart.europarltools.services.BatchService;
 import be.gdusart.europarltools.services.EnvironmentService;
 
@@ -38,6 +38,9 @@ public class RpRulesValidationScheduler {
 	private EnvironmentService envService;
 	
 	@Autowired
+	private ReverseProxyRulesService rulesService;
+	
+	@Autowired
 	private BatchService batchService;
 
 	@Autowired
@@ -50,16 +53,17 @@ public class RpRulesValidationScheduler {
 		
 		
 		LOG.info("Starting RP rules validation task");
-		Iterable<Environment> environments = envService.getEnvironmentsWithRules();
+		Iterable<Environment> environments = envService.getEnvironments();
 		for (Environment env : environments) {
 			LOG.info("Starting RP rules validation for environment {}...", env.getName());
-			RpRulesValidationBatch batch = batchService.createNewRpRulesValidationBatch();
+			Batch batch = batchService.createNewBatch();
 			
 			List<Future<?>> launchedTasksForBatch = new ArrayList<>();
 			
 			LOG.debug("Getting rulesets for environnement {}", env.getName());
 			
-			for (ReverseProxyRuleSet ruleSet : env.getReverseProxyRulesets()) {
+			Iterable<ReverseProxyRuleSet> rulesets = rulesService.getRulesetsForEnvironement(env);
+			for (ReverseProxyRuleSet ruleSet : rulesets) {
 				LOG.info("Launching tasks for ruleset {}, env {}", ruleSet.getRuleSetName(), env.getName());
 				
 				Collection<ReverseProxyRule> rules = ruleSet.getRules();
@@ -67,8 +71,8 @@ public class RpRulesValidationScheduler {
 				
 				for (ReverseProxyRule rule : rules) {
 					LOG.info("Launching tasks for rule {}", rule.getBaseUrl());
-					ReverseProxyRuleValidationResult result = new ReverseProxyRuleValidationResult(batch.getId(), ruleSet.getRuleSetName(), env.getName());
-					result = batchService.saveRPValidationResult(result);
+					ReverseProxyRuleValidationTask result = new ReverseProxyRuleValidationTask(batch, ruleSet.getRuleSetName(), env.getName());
+					result = batchService.saveBatchTask(result);
 					
 					
 					Future<?> taskFuture = taskExecutor.submit(new RPRuleValidationTask(env.getServerUrl(), rule, client, result, batchService));
@@ -85,9 +89,9 @@ public class RpRulesValidationScheduler {
 	private class BatchStatusMonitoringTask implements Runnable{
 
 		private final List<Future<?>> tasks;
-		private final RpRulesValidationBatch batch;
+		private final Batch batch;
 		
-		public BatchStatusMonitoringTask(List<Future<?>> tasks, RpRulesValidationBatch batch) {
+		public BatchStatusMonitoringTask(List<Future<?>> tasks, Batch batch) {
 			super();
 			this.tasks = tasks;
 			this.batch = batch;

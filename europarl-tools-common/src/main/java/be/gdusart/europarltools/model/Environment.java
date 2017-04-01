@@ -1,12 +1,10 @@
 package be.gdusart.europarltools.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Environment {
@@ -14,7 +12,7 @@ public class Environment {
 	public Environment() {
 		super();
 	}
-	
+
 	public Environment(String name, String serverUrl) {
 		super();
 		this.name = name;
@@ -22,11 +20,18 @@ public class Environment {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	@Column(unique = true, nullable=false)
 	private String name;
+
+	@Column(nullable=false)
 	private String serverUrl;
 
-	@OneToMany(cascade={CascadeType.ALL})
-	private List<ReverseProxyRuleSet> reverseProxyRulesets = new ArrayList<>();
+	public long getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -42,14 +47,6 @@ public class Environment {
 
 	public void setServerUrl(String serverUrl) {
 		this.serverUrl = serverUrl;
-	}
-
-	public List<ReverseProxyRuleSet> getReverseProxyRulesets() {
-		return reverseProxyRulesets;
-	}
-
-	public void setReverseProxyRulesets(List<ReverseProxyRuleSet> reverseProxyRulesets) {
-		this.reverseProxyRulesets = reverseProxyRulesets;
 	}
 
 }
