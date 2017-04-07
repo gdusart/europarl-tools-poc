@@ -17,4 +17,6 @@ public interface BatchService {
 
 	Batch getBatch(long batchId);
 
+	BatchTask getTask(long taskId);
+
 }

@@ -1,0 +1,254 @@
+[ {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/full-list.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/fr/parliamentary-committees.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/studies.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/fr/supporting-analyses-search.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/cont/studies.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/fr/cont/supporting-analyses.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/studies",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/en/supporting-analyses-search.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/supporting-analyses",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/en/supporting-analyses-search.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/askEP/fr",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "http://www.europarl.europa.eu/atyourservice/fr/20150201PVL00027/Citizens-enquiries"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/tenders",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/0036ddd1cc/Invitations-to-tender.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/socialmedia",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00fd7b595a/Social-media.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/meps/fr/performsearch.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/decl/performsearch.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/meps/fr/",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/meps/fr/map.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/plenary/fr/rule-42.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/article42/fr/article42.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/archives.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parlArchives/comArch/comDocSearch.do$2?language=FR"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/delegations/fr/archives.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parlArchives/delArch/delPubSearch.do?language=FR"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/aboutparliament/fr/002398d833/Sakharov-Prize-for-Freedom-of-Thought.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/fr/00f3dd2249/Sakharov-Prize-for-Freedom-of-Thought.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/aboutparliament/fr/0044c3dd41/",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/fr/displayFtu.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/aboutparliament/fr/0083c7a4db/Think-Tank.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/thinktank/fr"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/rss/doc/headlines/fr.xml",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/rss/doc/press-releases/fr.xml"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/rss/doc/press-service/fr.xml",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/rss/doc/press-news/fr.xml"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/tools/rss/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/rss/fr/rss.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "(/art-collection/..)/?",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "fr/welcome.htm"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/patronage",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00c2cf7170/Patronage.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/security_access.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00c623acc4/Security-and-Access.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/Security_Access.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00c623acc4/Security-and-Access.html"
+}, 
+ {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/tenders/invitations",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/tenders/invitations.htm"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/dpo",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/expert/staticDisplay.do?id=68"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/inter-religious-dialogue",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "http://www.europarl.europa.eu/atyourservice/en/20160919PVL00112"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/factsheets/fr",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/fr/displayFtu.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/factsheets",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/en/displayFtu.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/finp_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/finp/default_fr.htm"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/equi_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/equi/default_fr.htm"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/tdip_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/tdip/default_fr.htm"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/clim_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/clim/default_fr.htm"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/groups/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/public/staticDisplay.do?id=45&pageRank=4&language=fr"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/guide/disclaimer/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/portal/fr/legal-notice"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/facts/test_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/expert/staticDisplay.do?language=fr&id=72"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/facts/",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/expert/staticDisplay.do?language=FR&id=72"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/studies/test",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/en/supporting-analyses-search.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/oppd",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/008407cea1/Office-for-Promotion-of-Parliamentary-Democracy.html"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/plenary/fr/introduction-budgetary-procedure.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/fr/20150201PVL00005/Pouvoir-budgétaire"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/1989-2009/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/fr"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/1989-2009/?",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/en""
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/delegations/fr/dmas/general-documents.html?tab=Syria",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/delegations/fr/dmas/publications.html?tab=Syria"
+}

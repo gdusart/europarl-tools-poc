@@ -9,17 +9,22 @@ import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonObject;
 
 import be.gdusart.europarltools.app.ui.exceptions.Error404Exception;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList;
+import be.gdusart.europarltools.app.ui.helpers.DisplayableObject;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList.DisplayableRow;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList.DisplayableRow.RowLevel;
 import be.gdusart.europarltools.model.Batch;
@@ -76,7 +81,7 @@ public class UIController {
 		Collection<DisplayableRow> rows = CollectionUtils.collect(tasks, new Transformer<BatchTask, DisplayableRow>() {
 			@Override
 			public DisplayableRow transform(BatchTask task) {
-				DisplayableRow row = new DisplayableRow(null, task.getId(), formatDate(task.getStartDate()),
+				DisplayableRow row = new DisplayableRow("batches/task/" + task.getId(), task.getId(), formatDate(task.getStartDate()),
 						formatDate(task.getEndDate()), task.getStatus());
 				
 				if (task.getStatus() != null) {
@@ -93,6 +98,28 @@ public class UIController {
 		return listView(list);
 	}
 	
+	@RequestMapping("batches/task/{taskId}")
+	public ModelAndView getBatchTaskDetail(@PathVariable long taskId) {
+		BatchTask task = batchService.getTask(taskId);
+		
+		if (task == null) {
+			throw new Error404Exception("Task with ID {} does not exist");
+		}
+		
+//		JsonObject object = null;
+//		try {
+//			//TODO: probably really bad
+//			
+//			object = new JsonObject((new ObjectMapper().writeValueAsString(taskId));
+//		} catch (Exception e) {
+//			
+//			//TODO
+//		}
+		
+//		return showObject(new DisplayableObject("Details for task " + task.getId(), object));
+		throw new IllegalArgumentException("Not implemented");
+	}
+
 	@RequestMapping("environments")
 	public ModelAndView listEnvironments() {
 		Collection<Environment> envs = IterableUtils.toList(envService.getEnvironments());
@@ -116,8 +143,17 @@ public class UIController {
 		return mav;
 	}
 
+	
+	private static ModelAndView showObject(DisplayableObject displayableObject) {
+		ModelAndView mav = new ModelAndView("displayobject");
+		mav.addObject("object", displayableObject);
+		return mav;
+	}
+	
 	private static String formatDate(Date date) {
 		return date != null ? DATE_FORMAT.format(date) : StringUtils.EMPTY;
 	}
+	
+
 
 }
