@@ -42,6 +42,7 @@ public class ReverseProxyRuleSet {
 	public ReverseProxyRuleSet(String ruleSetName, Collection<ReverseProxyRule> rules) {
 		super();
 		this.ruleSetName = ruleSetName;
+		this.rules = rules;
 	}
 
 	public String getRuleSetName() {

@@ -76,4 +76,6 @@ public abstract class BatchTask {
 		this.endDate = endDate;
 	}
 
+	public abstract String getResultInfo();
+
 }

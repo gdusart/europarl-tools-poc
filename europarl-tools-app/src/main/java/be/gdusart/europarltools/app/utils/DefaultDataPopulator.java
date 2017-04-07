@@ -1,11 +1,23 @@
 package be.gdusart.europarltools.app.utils;
 
+import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
+import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.digester.RuleSet;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.repository.query.spi.Function;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import be.gdusart.europarltools.model.Environment;
 import be.gdusart.europarltools.rp.model.ReverseProxyRule;
@@ -17,10 +29,10 @@ import be.gdusart.europarltools.services.EnvironmentService;
 public class DefaultDataPopulator implements CommandLineRunner {
 
 	private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(DefaultDataPopulator.class);
-	
+
 	@Autowired
 	private EnvironmentService envService;
-	
+
 	@Autowired
 	private ReverseProxyRulesService rulesService;
 
@@ -28,10 +40,10 @@ public class DefaultDataPopulator implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		LOG.info("initializing data...");
-		
+
 		Environment prodEnv = new Environment("PROD", "http://www.europarl.europa.eu");
 		envService.save(prodEnv);
-		
+
 		ReverseProxyRuleSet tomcat6 = new ReverseProxyRuleSet();
 		tomcat6.setRuleSetName("TOMCAT6");
 		Collection<ReverseProxyRule> rules = tomcat6.getRules();
@@ -41,7 +53,6 @@ public class DefaultDataPopulator implements CommandLineRunner {
 		rules.add(new ReverseProxyRule("/forms/css/forms_main.css"));
 		rules.add(new ReverseProxyRule("/rwd_site/common/css/atomicdesign.css"));
 		tomcat6 = rulesService.saveRuleset(tomcat6);
-		
 
 		ReverseProxyRuleSet planets = new ReverseProxyRuleSet();
 		planets.setRuleSetName("planets");
@@ -72,14 +83,32 @@ public class DefaultDataPopulator implements CommandLineRunner {
 		rules.add(new ReverseProxyRule("/thinktank/font/MyriadPro-Regular.otf"));
 		planets = rulesService.saveRuleset(planets);
 
-		
 		planets.getEnvironments().add(prodEnv);
 		tomcat6.getEnvironments().add(prodEnv);
-		
-		
+
+		ReverseProxyRuleSet rpRulesRuleset = loadRpRules("Reverse proxy");
+		rpRulesRuleset.getEnvironments().add(prodEnv);
+
+		rulesService.saveRuleset(rpRulesRuleset);
 		rulesService.saveRuleset(planets);
 		rulesService.saveRuleset(tomcat6);
 
+	}
+
+	private ReverseProxyRuleSet loadRpRules(String rulesetName) {
+		
+		try {
+			File file = new ClassPathResource("pe_dzm_rules_withtitle.json").getFile();
+			LOG.info("Loading rp rules from {}", file.getAbsolutePath());
+			String jsonInput = FileUtils.readFileToString(file);
+			List<ReverseProxyRule> rules = new ObjectMapper().readValue(jsonInput,
+					new TypeReference<List<ReverseProxyRule>>() {
+					});			
+		
+			return new ReverseProxyRuleSet(rulesetName, rules);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

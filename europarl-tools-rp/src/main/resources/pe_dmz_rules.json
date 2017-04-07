@@ -115,9 +115,9 @@
 }, {
   "id" : null,
   "ruleset" : null,
-  "baseUrl" : "(/art-collection/..)/?",
+  "baseUrl" : "/art-collection/fr",
   "expectedCode" : 200,
-  "expectedRedictionUrl" : "fr/welcome.htm"
+  "expectedRedictionUrl" : "/art-collection/fr/welcome.htm"
 }, {
   "id" : null,
   "ruleset" : null,
@@ -244,11 +244,11 @@
   "ruleset" : null,
   "baseUrl" : "/1989-2009/?",
   "expectedCode" : 200,
-  "expectedRedictionUrl" : "/atyourservice/en""
+  "expectedRedictionUrl" : "/atyourservice/en"
 }, {
   "id" : null,
   "ruleset" : null,
   "baseUrl" : "/delegations/fr/dmas/general-documents.html?tab=Syria",
   "expectedCode" : 200,
   "expectedRedictionUrl" : "/delegations/fr/dmas/publications.html?tab=Syria"
-}
+}]

@@ -1,6 +1,13 @@
 package be.gdusart.europarltools.rp.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import org.apache.commons.lang3.StringUtils;
 
 import be.gdusart.europarltools.model.Batch;
 import be.gdusart.europarltools.model.BatchTask;
@@ -11,8 +18,11 @@ public class ReverseProxyRuleValidationTask extends BatchTask {
 	private String rulesetName;
 	private String environmentName;
 
-	private String url;
-	private Exception exception;
+	private String baseUrl;
+	private String destinationUrl;
+	
+	@Column(length=1000)
+	private String exception;
 	private String httpMessage;
 	private int httpStatus;
 
@@ -26,12 +36,12 @@ public class ReverseProxyRuleValidationTask extends BatchTask {
 		this.environmentName = environmentName;
 	}
 
-	public Exception getException() {
+	public String getException() {
 		return exception;
 	}
 
-	public void setException(Exception exception) {
-		this.exception = exception;
+	public void setException(String exception) {
+		this.exception = exception != null ? StringUtils.abbreviate(exception, 1000) : null;
 	}
 
 	public String getHttpMessage() {
@@ -58,8 +68,8 @@ public class ReverseProxyRuleValidationTask extends BatchTask {
 		this.environmentName = environmentName;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getDestinationUrl() {
+		return destinationUrl;
 	}
 
 	public int getHttpStatus() {
@@ -70,8 +80,29 @@ public class ReverseProxyRuleValidationTask extends BatchTask {
 		this.httpStatus = httpStatus;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setDestinationUrl(String url) {
+		this.destinationUrl = url;
+	}
+
+	public String getBaseUrl() {
+		return baseUrl;
+	}
+
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
+
+	@Override
+	public String getResultInfo() {
+		
+		List<Object> fields = new ArrayList<>();
+		fields.add(baseUrl != null ? baseUrl  + (destinationUrl != null ? (" -> " + destinationUrl) : StringUtils.EMPTY) : StringUtils.EMPTY);
+		fields.add(httpMessage);
+		fields.add(httpStatus);
+		fields.add(exception);		
+		fields.removeAll(Collections.singletonList(null));
+		
+		return StringUtils.join(fields, " - ");
 	}
 
 }

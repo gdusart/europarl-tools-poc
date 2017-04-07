@@ -82,7 +82,7 @@ public class UIController {
 			@Override
 			public DisplayableRow transform(BatchTask task) {
 				DisplayableRow row = new DisplayableRow("batches/task/" + task.getId(), task.getId(), formatDate(task.getStartDate()),
-						formatDate(task.getEndDate()), task.getStatus());
+						formatDate(task.getEndDate()), task.getStatus(), task.getResultInfo());
 				
 				if (task.getStatus() != null) {
 					row.setLevel(TASK_STATUS_TO_ROWLEVEL.get(task.getStatus()));
@@ -93,7 +93,7 @@ public class UIController {
 		});
 
 		DisplayableList list = new DisplayableList("Tasks for batch " + batch.getId(),
-				new String[] { "ID", "START DATE", "END DATE", "STATUS" }, rows);
+				new String[] { "ID", "START DATE", "END DATE", "STATUS", "INFO" }, rows);
 
 		return listView(list);
 	}

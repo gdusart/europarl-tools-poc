@@ -1,0 +1,295 @@
+[ {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/full-list.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/fr/parliamentary-committees.html",
+  "expectedTitle" : "Espace des commissions | Commissions | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/studies.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/fr/supporting-analyses-search.html",
+  "expectedTitle" : "Recherche base de données | Analyses complémentaires | Commissions | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/cont/studies.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/fr/cont/supporting-analyses.html",
+  "expectedTitle" : "Analyses complémentaires | Accueil | CONT | Commissions | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/studies",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/en/supporting-analyses-search.html",
+  "expectedTitle" : "Search database | Supporting analyses | Committees | European Parliament"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/supporting-analyses",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/en/supporting-analyses-search.html",
+  "expectedTitle" : "Search database | Supporting analyses | Committees | European Parliament"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/askEP/fr",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "http://www.europarl.europa.eu/atyourservice/fr/20150201PVL00027/Citizens-enquiries",
+  "expectedTitle" : "Demandes d&#039;informations des citoyens"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/tenders",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/0036ddd1cc/Invitations-to-tender.html",
+  "expectedTitle" : "Invitations to tender"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/socialmedia",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00fd7b595a/Social-media.html",
+  "expectedTitle" : "Social media"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/meps/fr/performsearch.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/decl/performsearch.html",
+  "expectedTitle" : "European Parliament - File not found"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/meps/fr/",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/meps/fr/map.html",
+  "expectedTitle" : "Chercher un député | Députés | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/plenary/fr/rule-42.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/article42/fr/article42.html",
+  "expectedTitle" : "European Parliament - File not found"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/fr/archives.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parlArchives/comArch/comDocSearch.do$2?language=FR",
+  "expectedTitle" : "\n      Activités - Archives - Commissions (6ème lég.) : Recherche de documents\n    "
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/delegations/fr/archives.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parlArchives/delArch/delPubSearch.do?language=FR",
+  "expectedTitle" : "\n      Activités - Archives - Délégations : Recherche de documents\n    "
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/aboutparliament/fr/002398d833/Sakharov-Prize-for-Freedom-of-Thought.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/fr/00f3dd2249/Sakharov-Prize-for-Freedom-of-Thought.html",
+  "expectedTitle" : "Prix Sakharov"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/aboutparliament/fr/0044c3dd41/",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/fr/displayFtu.html",
+  "expectedTitle" : "Présentation | Fiches techniques sur l'Union européenne | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/aboutparliament/fr/0083c7a4db/Think-Tank.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/thinktank/fr",
+  "expectedTitle" : "Accueil | Think Tank | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/rss/doc/headlines/fr.xml",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/rss/doc/press-releases/fr.xml",
+  "expectedTitle" : "Communiqués de presse - Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/rss/doc/press-service/fr.xml",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/rss/doc/press-news/fr.xml",
+  "expectedTitle" : "Actualité - Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/tools/rss/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/rss/fr/rss.html",
+  "expectedTitle" : "Flux RSS | RSS | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/art-collection/fr",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/art-collection/fr/welcome.htm",
+  "expectedTitle" : "Collection d'art"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/patronage",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00c2cf7170/Patronage.html",
+  "expectedTitle" : "Patronage"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/security_access.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00c623acc4/Security-and-Access.html",
+  "expectedTitle" : "Security and access"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/Security_Access.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/00c623acc4/Security-and-Access.html",
+  "expectedTitle" : "Security and access"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/tenders/invitations",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/tenders/invitations.htm",
+  "expectedTitle" : "List of notices of invitations to tender, calls for expressions of interest, and calls for proposals"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/dpo",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/expert/staticDisplay.do?id=68",
+  "expectedTitle" : "Organisation"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/inter-religious-dialogue",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "http://www.europarl.europa.eu/atyourservice/en/20160919PVL00112",
+  "expectedTitle" : "Religious and non-confessional dialogue"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/factsheets/fr",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/fr/displayFtu.html",
+  "expectedTitle" : "Présentation | Fiches techniques sur l'Union européenne | Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/factsheets",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/en/displayFtu.html",
+  "expectedTitle" : "Introduction | EU fact sheets | European Parliament"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/finp_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/finp/default_fr.htm",
+  "expectedTitle" : "EUROPARL: Committees of the European Parliament - BUDG"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/equi_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/equi/default_fr.htm",
+  "expectedTitle" : "EUROPARL: Commissions du Parlement europ&eacute;en - EQUI"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/tdip_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/tdip/default_fr.htm",
+  "expectedTitle" : "EUROPARL: Commissions du Parlement europ&eacute;en - TDIP"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/committees/clim_home_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/comparl/tempcom/clim/default_fr.htm",
+  "expectedTitle" : "EUROPARL: Commissions du Parlement europ&eacute;en - CLIM"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/groups/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/public/staticDisplay.do?id=45&pageRank=4&language=fr",
+  "expectedTitle" : "Ã votre service"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/guide/disclaimer/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/portal/fr/legal-notice",
+  "expectedTitle" : "Mentions lÃ©gales pour les internautes | Parlement europÃ©en"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/facts/test_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/expert/staticDisplay.do?language=fr&id=72",
+  "expectedTitle" : "Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/facts/",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/parliament/expert/staticDisplay.do?language=FR&id=72",
+  "expectedTitle" : "Parlement européen"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/studies/test",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/committees/en/supporting-analyses-search.html",
+  "expectedTitle" : "Search database | Supporting analyses | Committees | European Parliament"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/oppd",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/en/008407cea1/Office-for-Promotion-of-Parliamentary-Democracy.html",
+  "expectedTitle" : "410 Gone"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/plenary/fr/introduction-budgetary-procedure.html",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/aboutparliament/fr/20150201PVL00005/Pouvoir-budgétaire",
+  "expectedTitle" : "Pouvoir budgÃ©taire"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/1989-2009/default_fr.htm",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/fr",
+  "expectedTitle" : "Ã votre service"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/1989-2009/?",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/atyourservice/en",
+  "expectedTitle" : "At your service"
+}, {
+  "id" : null,
+  "ruleset" : null,
+  "baseUrl" : "/delegations/fr/dmas/general-documents.html?tab=Syria",
+  "expectedCode" : 200,
+  "expectedRedictionUrl" : "/delegations/fr/dmas/publications.html?tab=Syria",
+  "expectedTitle" : "Documents généraux | Machrek | Délégations | Parlement européen"
+} ]

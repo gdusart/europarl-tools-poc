@@ -21,6 +21,7 @@ public class ReverseProxyRule {
 	public String baseUrl;
 	public int expectedCode = HttpStatus.SC_OK;
 	public String expectedRedictionUrl;
+	public String expectedTitle;
 
 	public ReverseProxyRule() {
 		super();
@@ -76,6 +77,14 @@ public class ReverseProxyRule {
 
 	public void setRuleset(ReverseProxyRuleSet ruleset) {
 		this.ruleset = ruleset;
+	}
+
+	public String getExpectedTitle() {
+		return expectedTitle;
+	}
+
+	public void setExpectedTitle(String expectedTitle) {
+		this.expectedTitle = expectedTitle;
 	}
 
 }
