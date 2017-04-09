@@ -9,24 +9,19 @@ import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
-import com.google.gson.JsonObject;
 
 import be.gdusart.europarltools.app.ui.exceptions.Error404Exception;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList;
-import be.gdusart.europarltools.app.ui.helpers.DisplayableObject;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList.DisplayableRow;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList.DisplayableRow.RowLevel;
+import be.gdusart.europarltools.app.ui.helpers.DisplayableObject;
 import be.gdusart.europarltools.model.Batch;
 import be.gdusart.europarltools.model.BatchTask;
 import be.gdusart.europarltools.model.BatchTask.TaskStatus;

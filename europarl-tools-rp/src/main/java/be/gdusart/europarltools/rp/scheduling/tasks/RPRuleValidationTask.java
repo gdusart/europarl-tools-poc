@@ -48,7 +48,7 @@ public final class RPRuleValidationTask implements Runnable {
 		result.setStatus(TaskStatus.IN_PROGRESS);
 		result = batchService.saveBatchTask(result);
 
-		LOG.debug("Starting check for url {}", result.getDestinationUrl());
+		LOG.debug("Starting check for url {}", result.getBaseUrl());
 
 		HttpGet get = new HttpGet(result.getBaseUrl());
 		get.setHeader(new BasicHeader("Prama", "no-cache"));
