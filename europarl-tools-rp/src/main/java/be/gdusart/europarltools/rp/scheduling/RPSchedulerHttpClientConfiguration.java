@@ -10,7 +10,6 @@ import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
-@ComponentScan("be.gdusart.europarltools.rp")
 public class RPSchedulerHttpClientConfiguration {
 
 	public static final String HTTP_CLIENT_QUALIFIER = "RPSchedulerHttpClientConfiguration_httpclient";

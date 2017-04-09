@@ -1,5 +1,6 @@
 package be.gdusart.europarltools.app.ui;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Iterables;
 
 import be.gdusart.europarltools.app.ui.exceptions.Error404Exception;
 import be.gdusart.europarltools.app.ui.helpers.DisplayableList;
@@ -48,17 +52,28 @@ public class UIController {
 	@RequestMapping("batches")
 	public ModelAndView listBatches() {
 		Collection<Batch> batches = IterableUtils.toList(batchService.getAllBatches());
-
+		
 		Collection<DisplayableRow> rows = CollectionUtils.collect(batches, new Transformer<Batch, DisplayableRow>() {
 			@Override
 			public DisplayableRow transform(Batch input) {
+				Iterable<BatchTask> tasks = batchService.getTasksForBatchId(input.getId());
+				
+				Iterable<BatchTask> failed = Iterables.filter(tasks, new Predicate<BatchTask>() {
+					@Override
+					public boolean apply(BatchTask input) {
+						return input.getStatus() == TaskStatus.FAILED;
+					}					
+				});
+				
+				int failedCount = Iterables.size(failed);
+				
 				DisplayableRow row = new DisplayableRow("batches/" + input.getId(), input.getId(),
-						formatDate(input.getStartTime()), formatDate(input.getEndTime()));
+						formatDate(input.getStartTime()), formatDate(input.getEndTime()), failedCount);
 				return row;
 			}
 		});
 
-		DisplayableList list = new DisplayableList("List of batches", new String[] { "ID", "START", "END" }, rows);
+		DisplayableList list = new DisplayableList("List of batches", new String[] { "ID", "START", "END", "FAIL COUNT" }, rows);
 
 		return listView(list);
 	}
