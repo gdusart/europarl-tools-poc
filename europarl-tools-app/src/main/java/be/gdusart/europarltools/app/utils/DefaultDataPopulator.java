@@ -1,6 +1,7 @@
 package be.gdusart.europarltools.app.utils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -96,12 +97,8 @@ public class DefaultDataPopulator implements CommandLineRunner {
 	}
 
 	private ReverseProxyRuleSet loadRpRules(String rulesetName) {
-		
-		try {
-			File file = new ClassPathResource("pe_dzm_rules_withtitle.json").getFile();
-			LOG.info("Loading rp rules from {}", file.getAbsolutePath());
-			String jsonInput = FileUtils.readFileToString(file);
-			List<ReverseProxyRule> rules = new ObjectMapper().readValue(jsonInput,
+		try(InputStream stream = new ClassPathResource("pe_dzm_rules_withtitle.json").getInputStream()) {
+			List<ReverseProxyRule> rules = new ObjectMapper().readValue(stream,
 					new TypeReference<List<ReverseProxyRule>>() {
 					});			
 		
