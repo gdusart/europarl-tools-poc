@@ -4,11 +4,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
+@ComponentScan("be.gdusart.europarltools.rp")
 public class RPSchedulerHttpClientConfiguration {
 
 	public static final String HTTP_CLIENT_QUALIFIER = "RPSchedulerHttpClientConfiguration_httpclient";

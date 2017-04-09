@@ -28,7 +28,7 @@ import be.gdusart.europarltools.services.EnvironmentService;
 @Component
 public class RpRulesValidationScheduler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(RPSchedulerHttpClientConfiguration.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RpRulesValidationScheduler.class);
 	
 	@Autowired
 	@Qualifier(RPSchedulerHttpClientConfiguration.HTTP_CLIENT_QUALIFIER)
